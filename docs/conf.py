@@ -34,7 +34,7 @@ extensions = [
     'sphinxcontrib.matlab'
 ]
 matlab_src_dir = os.path.abspath('..')
-primary_domain = 'py'
+primary_domain = None
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
