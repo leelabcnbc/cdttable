@@ -16,6 +16,8 @@ def generate_valid_import_params_example():
     import_params = copy.deepcopy(baseline_import_params)
     import_params['subtrials'].append(generate_subtrial_endcode())
     import_params['subtrials'].append(generate_subtrial_endtime())
+    import_params['margin_before'] = 0
+    import_params['margin_after'] = 0
     return import_params
 
 

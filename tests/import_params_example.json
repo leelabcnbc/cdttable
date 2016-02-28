@@ -2,13 +2,15 @@
   "comment":"",
   "subtrials":[
     {
-      "end_code":33,
-      "start_code":97
+      "end_code":75,
+      "start_code":-15
     },
     {
-      "start_code":68,
-      "end_time":0.016468695227204844
+      "start_code":25,
+      "end_time":1.444632574557966
     }
   ],
-  "trial_to_condition_func":"(codes, idx) codes(1)+idx"
+  "trial_to_condition_func":"(codes, idx) codes(1)+idx",
+  "margin_after":0,
+  "margin_before":0
 }

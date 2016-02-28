@@ -9,31 +9,33 @@ function [ CDTTable ] = import_one_file( preprocess_result, import_params )
 %
 % .. seealso:: :mat:func:`+cdttable.import_one_trial`,
 
-import cdttable.import_one_trial
+import cdttable.read_import_params
 
-NEV_code = preprocess_result.event_codes;
-NEV_time = preprocess_result.event_times;
-TimeStamps = preprocess_result.spike_times;
-spikeElecUnit = preprocess_result.spike_locations;
-
+event_codes = preprocess_result.event_codes;
+event_times = preprocess_result.event_times;
+spike_times = preprocess_result.spike_times;
+spike_locations = preprocess_result.spike_locations;
+assert(iscell(event_codes) && iscell(event_times));
+assert(numel(event_codes)==numel(event_times));
+assert(numel(event_codes)>=1, 'at least one trial!');
 
 %% for cellfun applying processing function to each trial.
-tmp_struct = cell(numel(NEV_code),1);
+tmp_struct = cell(numel(event_codes),1);
 % pre-process all needed spike information for each trial.
-for jTrial = 1:numel(NEV_code)
-    start_time_trial = NEV_time{jTrial}(1);
-    end_time_trial = NEV_time{jTrial}(end);
+for jTrial = 1:numel(event_codes)
+    start_time_trial = event_times{jTrial}(1);
+    end_time_trial = event_times{jTrial}(end);
     
     % notice that these are all open intervals, consistent with Corentin's
     % old program.
-    selectIdx = ( (TimeStamps > start_time_trial-import_params_margin_before) ...
-        & (TimeStamps < end_time_trial+import_params_margin_after) );
+    selectIdx = ( (spike_times > start_time_trial-import_params_margin_before) ...
+        & (spike_times < end_time_trial+import_params_margin_after) );
     
-    tmp_struct{jTrial}.Electrode = spikeElecUnit(selectIdx,1);
-    tmp_struct{jTrial}.Unit = spikeElecUnit(selectIdx,2);
-    tmp_struct{jTrial}.TimeStamps = TimeStamps(selectIdx);
-    tmp_struct{jTrial}.EventCodes = NEV_code{jTrial};
-    tmp_struct{jTrial}.EventTimes = NEV_time{jTrial};
+    tmp_struct{jTrial}.Electrode = spike_locations(selectIdx,1);
+    tmp_struct{jTrial}.Unit = spike_locations(selectIdx,2);
+    tmp_struct{jTrial}.TimeStamps = spike_times(selectIdx);
+    tmp_struct{jTrial}.EventCodes = event_codes{jTrial};
+    tmp_struct{jTrial}.EventTimes = event_times{jTrial};
     tmp_struct{jTrial}.trialIdx = jTrial;
 end
 
@@ -41,14 +43,14 @@ end
 %     tmp_struct, 'UniformOutput', false);
 
 %% parallel processing of trials. Should try out to see which is better.
-CDTTableByTrials = cell(numel(NEV_code),1);
-parfor iTrial = 1:numel(NEV_code)
+CDTTableByTrials = cell(numel(event_codes),1);
+parfor iTrial = 1:numel(event_codes)
     CDTTableByTrials{iTrial} = import_one_trial(tmp_struct{iTrial}, import_params)
 end
 
 %% create a cell array for each column in the whole table.
 CDTTable = struct();
-numTrial = numel(NEV_code);
+numTrial = numel(event_codes);
 CDTTable.condition = zeros(numTrial,1);
 CDTTable.starttime = cell(numTrial,1); % later to be represented as matrix.
 CDTTable.stoptime = cell(numTrial,1); % later to be represented as matrix.
