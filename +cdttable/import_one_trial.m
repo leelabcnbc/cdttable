@@ -33,7 +33,6 @@ CDTTableRow = struct();
 % spikeTimes % cell array of all spikes in that electrode/unit combination.
 % eventCodes % column vector of all event codes during the given window.
 % eventTimes % column vector of all event times during the given window.
-% trialIdx % 1-based index of the trial.
 
 % all times are w.r.t. the time of trial start time, which should be
 % usually the time of first start marker, shifted by the margin_before.

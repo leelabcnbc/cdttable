@@ -1,0 +1,14 @@
+{
+  "comment":"",
+  "subtrials":[
+    {
+      "end_code":33,
+      "start_code":97
+    },
+    {
+      "start_code":68,
+      "end_time":0.016468695227204844
+    }
+  ],
+  "trial_to_condition_func":"(codes, idx) codes(1)+idx"
+}

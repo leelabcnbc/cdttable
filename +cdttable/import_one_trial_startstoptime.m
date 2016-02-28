@@ -47,6 +47,7 @@ end
 % find_event_times_given_codes should already complain if this happens.
 assert(all(~isnan(CDTTableRow.starttime)));
 assert(all(~isnan(CDTTableRow.stoptime)));
+assert(all(CDTTableRow.starttime-CDTTableRow.stoptime<=0));
 
 % save codes for easier access.
 CDTTableRow.startAlignCodes = startAlignCodes;
