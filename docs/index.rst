@@ -15,6 +15,8 @@ Contents:
    :maxdepth: 2
 
    cdttable
+   tests_mat
+   tests_py
 
 
 Indices and tables

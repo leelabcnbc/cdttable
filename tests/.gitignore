@@ -1,0 +1,4 @@
+/bad_import_params/**
+!/bad_import_params/.gitignore
+/good_import_params/**
+!/good_import_params/.gitignore

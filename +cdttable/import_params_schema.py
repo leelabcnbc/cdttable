@@ -28,17 +28,19 @@ class CDTTableImportParamsSchemaCommon(jsl.Document):
 
 
 class CDTTableImportParamsSchemaEndTime(CDTTableImportParamsSchemaCommon):
-    trial_start_code = jsl.IntField()
-    trial_end_time = jsl.NumberField(minimum=0)
+    trial_start_code = jsl.IntField(required=True)
+    trial_end_time = jsl.NumberField(minimum=0, required=True)
 
 
 class CDTTableImportParamsSchemaEndCode(CDTTableImportParamsSchemaCommon):
-    trial_start_code = jsl.IntField()
-    trial_end_code = jsl.IntField()
+    trial_start_code = jsl.IntField(required=True)
+    trial_end_code = jsl.IntField(required=True)
 
 
+# for trial level start and end markers. either you give both, or nothing.
 CDTTableImportParamsSchema = jsl.OneOfField([jsl.DocumentField(CDTTableImportParamsSchemaEndTime),
-                                             jsl.DocumentField(CDTTableImportParamsSchemaEndCode)])
+                                             jsl.DocumentField(CDTTableImportParamsSchemaEndCode),
+                                             jsl.DocumentField(CDTTableImportParamsSchemaCommon)])
 
 
 class User(jsl.Document):
@@ -49,4 +51,4 @@ class User(jsl.Document):
 if __name__ == '__main__':
     # output the schema.
     with open(os.path.join(sys.path[0], 'import_params_schema.json'), 'wt') as f:
-        f.write((json.dumps(CDTTableImportParamsSchema.get_schema(ordered=True), indent=4)))
+        f.write((json.dumps(CDTTableImportParamsSchema.get_schema(ordered=True), indent=2, separators=(',', ':'))))
