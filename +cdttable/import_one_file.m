@@ -22,9 +22,26 @@ assert(numel(event_codes)>=1, 'at least one trial!');
 
 import_params_margin_before = double(import_params.get('margin_before'));
 import_params_margin_after = double(import_params.get('margin_after'));
-trialEndTimePadding = 0;
+
+% ``additionalPadding`` accounts for max additional padding due to
+% ``end_time`` in subtrials and the trial.
+additionalPadding = 0;
 if import_params.containsKey('trial_end_time') % time based
-    trialEndTimePadding = double(import_params.get('trial_end_time'));
+    additionalPadding = double(import_params.get('trial_end_time'));
+end
+
+% also cycle over subtrials to find any end_time, and take the max of it
+% with trialEndTimePadding.
+
+numPairMarker = double(import_params.get('subtrials').size());
+assert(numPairMarker>=1); % at least one pair.
+% create a ref to subtrials for ease of access.
+subtrialsRef = import_params.get('subtrials');
+for iAlignCode = 1:numPairMarker
+    if subtrialsRef.get(iAlignCode-1).containsKey('end_time')
+        additionalPadding = max(additionalPadding, ...
+            subtrialsRef.get(iAlignCode-1).get('end_time'));
+    end
 end
 
 %% for cellfun applying processing function to each trial.
@@ -37,7 +54,7 @@ for jTrial = 1:numel(event_codes)
     % notice that these are all open intervals, consistent with Corentin's
     % old program.
     selectIdx = ( (spike_times > start_time_trial-import_params_margin_before) ...
-        & (spike_times < (end_time_trial+import_params_margin_after+trialEndTimePadding)));
+        & (spike_times < (end_time_trial+import_params_margin_after+additionalPadding)));
     
     tmp_struct{jTrial}.Electrode = spike_locations(selectIdx,1);
     tmp_struct{jTrial}.Unit = spike_locations(selectIdx,2);
