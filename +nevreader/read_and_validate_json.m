@@ -3,7 +3,7 @@ function [ json_java, isValid ] = read_and_validate_json( json_path, json_schema
 %   Detailed explanation goes here
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.File
-
+mapper = ObjectMapper();
 json_java = [];
 importParamsInstance = mapper.readTree(File(json_path));
 schema_java = get_schema(json_schema_path);

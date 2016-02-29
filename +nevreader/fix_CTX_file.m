@@ -42,7 +42,7 @@ false_rewarded_trials = [];
 fixed_rewarded_trials = [];
 
 %% get reward code
-rewardcode = double(trial_template.get('reward_code'));
+rewardcode = double(trial_template.get('rewardcode'));
 
 %% for loop over trials.
 

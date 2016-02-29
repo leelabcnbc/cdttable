@@ -21,6 +21,10 @@
       "type":"SINGLE"
     },
     {
+      "code":16,
+      "type":"SINGLE"
+    },
+    {
       "missable":false,
       "max_value":192,
       "min_value":192,
@@ -31,10 +35,6 @@
       "max_value":208,
       "min_value":192,
       "type":"RANGE"
-    },
-    {
-      "code":16,
-      "type":"SINGLE"
     },
     {
       "code":23,

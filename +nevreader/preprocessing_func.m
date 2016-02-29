@@ -1,4 +1,4 @@
-function [ preprocessed_result ] = preprocessing_func( NEV_filename, preprocessing_params_path, CTX_filename )
+function [ preprocessed_result ] = preprocessing_func( NEV_filename, preprocessing_params_path, template_path, CTX_filename )
 %PREPROCESSING_FUNC Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,11 +6,11 @@ import nevreader.read_preprocessing_params
 import nevreader.fix_NEV_CTX
 import nevreader.add_rm_dependency
 add_rm_dependency('add');
-if nargin < 3 || isempty(CTX_filename)
+if nargin < 4 || isempty(CTX_filename)
     CTX_filename = [];
 end
 
-[ preprocessing_params, isValid ] = read_preprocessing_params( preprocessing_params_path );
+[ preprocessing_params, isValid ] = read_preprocessing_params(preprocessing_params_path, template_path);
 assert(isValid);
 
 % then read NEV codes and times.

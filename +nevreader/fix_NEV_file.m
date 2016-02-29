@@ -15,7 +15,7 @@ function [NEV_codes_new, NEV_times_new, rewarded_trials, ...
 
 import nevreader.split_trial_NEV
 import nevreader.fix_NEV_trial_TM
-
+import nevreader.NPMK_dir
 %% read old NEV codes and times.
 
 % should add path of NPMK, and then rmpath.
@@ -35,9 +35,9 @@ end
 assert(numel(NEV_codes_old)==numel(NEV_times_old));
 
 %% start, stop, reward codes for splitting and getting good trials.
-startcode = double(trial_template.get('start_code'));
-stopcode = double(trial_template.get('stop_code'));
-rewardcode = double(trial_template.get('reward_code'));
+startcode = double(trial_template.get('startcode'));
+stopcode = double(trial_template.get('stopcode'));
+rewardcode = double(trial_template.get('rewardcode'));
 
 %% use start/stop codes to split the whole code sequence into parts.
 NEV_split = split_trial_NEV(NEV_codes_old, startcode, stopcode);

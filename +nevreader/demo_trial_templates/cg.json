@@ -1,5 +1,5 @@
 {
-  "comment":"trial template for contrast tm file and contrast cnd file",
+  "comment":"trial template for cg tm file",
   "startcode":9,
   "stopcode":18,
   "rewardcode":96,
@@ -17,18 +17,24 @@
       "type":"SINGLE"
     },
     {
-      "missable":false,
-      "max_value":171,
-      "min_value":140,
-      "type":"RANGE"
-    },
-    {
       "code":100,
       "type":"SINGLE"
     },
     {
       "code":16,
       "type":"SINGLE"
+    },
+    {
+      "missable":false,
+      "max_value":195,
+      "min_value":192,
+      "type":"RANGE"
+    },
+    {
+      "missable":true,
+      "max_value":255,
+      "min_value":192,
+      "type":"RANGE"
     },
     {
       "code":23,
@@ -39,16 +45,32 @@
       "type":"SINGLE"
     },
     {
-      "code":33,
+      "code":25,
       "type":"SINGLE"
     },
     {
-      "code":31,
+      "code":26,
+      "type":"SINGLE"
+    },
+    {
+      "code":27,
+      "type":"SINGLE"
+    },
+    {
+      "code":28,
+      "type":"SINGLE"
+    },
+    {
+      "code":29,
+      "type":"SINGLE"
+    },
+    {
+      "code":30,
       "type":"SINGLE"
     },
     {
       "missable":false,
-      "max_value":123,
+      "max_value":124,
       "min_value":121,
       "type":"RANGE"
     },
@@ -57,15 +79,7 @@
       "type":"SINGLE"
     },
     {
-      "code":11,
-      "type":"SINGLE"
-    },
-    {
       "code":8,
-      "type":"SINGLE"
-    },
-    {
-      "code":31,
       "type":"SINGLE"
     },
     {
@@ -74,6 +88,10 @@
     },
     {
       "code":17,
+      "type":"SINGLE"
+    },
+    {
+      "code":0,
       "type":"SINGLE"
     },
     {
