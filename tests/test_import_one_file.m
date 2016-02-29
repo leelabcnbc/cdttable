@@ -92,8 +92,42 @@ end
 function check_result(import_params_this, preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth)
 % we need to get the start time and end time window of each trial.
 import cdttable.import_one_file
+import cdttable.import_one_trial
 CDTTable = import_one_file(preprocess_result, import_params_this);
-disp(numel(CDTTable.condition));
+
+% basically, do the same thing in import_one_trial, but on ground truth.
+trialNum = numel(eventTimesTruth);
+assert(trialNum == numel(CDTTable.condition));
+
+epsTol = 1e-10;
+for iTrial = 1:trialNum
+    tmp_struct = struct();
+    tmp_struct.Electrode = spikeLocationsTruth{iTrial}(:,1);
+    tmp_struct.Unit = spikeLocationsTruth{iTrial}(:,2);
+    tmp_struct.TimeStamps = spikeTimesTruth{iTrial};
+    tmp_struct.EventCodes = preprocess_result.event_codes{iTrial};
+    tmp_struct.EventTimes = eventTimesTruth{iTrial};
+    tmp_struct.trialIdx = iTrial;
+    CDTTableThisRow = import_one_trial(tmp_struct, import_params_this);
+    
+    % check
+    assert(isequal(CDTTable.condition(iTrial),CDTTableThisRow.condition));
+    assert(max(abs(CDTTable.starttime(iTrial,:)-CDTTableThisRow.starttime(:)'))<epsTol);
+    assert(max(abs(CDTTable.stoptime(iTrial,:)-CDTTableThisRow.stoptime(:)'))<epsTol);
+    assert(isequal(CDTTable.spikeElectrode{iTrial}, CDTTableThisRow.spikeElectrode));
+    assert(isequal(CDTTable.spikeUnit{iTrial}, CDTTableThisRow.spikeUnit));
+    
+    assert(numel(CDTTable.spikeTimes{iTrial})==numel(CDTTableThisRow.spikeTimes));
+    for i = 1:numel(CDTTable.spikeTimes{iTrial})
+        assert(max(abs(CDTTable.spikeTimes{iTrial}{i}-CDTTableThisRow.spikeTimes{i}))<epsTol);
+    end
+    
+    assert(isequal(CDTTable.eventCodes{iTrial}, CDTTableThisRow.eventCodes));
+    assert(max(abs(CDTTable.eventTimes{iTrial}-CDTTableThisRow.eventTimes))<epsTol);
+end
+
+
+
 end
 
 
@@ -166,7 +200,7 @@ numTrial = randi([1,500]);
 preprocess_result.event_codes = repmat({eventCodesPerTrial(:)},numTrial,1);
 
 %% 3. randomly compute the duration of each trial, and assign event codes with the markers.
-trialLengthUnpadded = rand([numTrial, 1])*maxTrialLength;  
+trialLengthUnpadded = rand([numTrial, 1])*maxTrialLength;
 % trials are between 0 to maxTrialLength seconds.
 % I will simply allow trial_end_time to be from almost maxTrialLength to
 % (almost maxTrialLength)+maxTrialEndTimeVariation, so I need an additional
@@ -190,6 +224,8 @@ trialLengthPadded = trialLengthUnpadded + trialPaddingBefore + trialPaddingAfter
 %% 5. generate some spikes within each trial's padded window, each with random electrode and unit.
 spikeTimesTruth = cell(numTrial,1);
 spikeLocationsTruth = cell(numTrial,1);
+% TODO: in the reader program, check shape of spike_locations.
+% must be [xxx, 2] and xxx > 0.
 for iTrial = 1:numTrial
     numSpikeThis = randi([1,1000]);
     if rand() < 0.2

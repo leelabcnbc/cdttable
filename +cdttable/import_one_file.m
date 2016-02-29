@@ -22,6 +22,10 @@ assert(numel(event_codes)>=1, 'at least one trial!');
 
 import_params_margin_before = double(import_params.get('margin_before'));
 import_params_margin_after = double(import_params.get('margin_after'));
+trialEndTimePadding = 0;
+if import_params.containsKey('trial_end_time') % time based
+    trialEndTimePadding = double(import_params.get('trial_end_time'));
+end
 
 %% for cellfun applying processing function to each trial.
 tmp_struct = cell(numel(event_codes),1);
@@ -33,7 +37,7 @@ for jTrial = 1:numel(event_codes)
     % notice that these are all open intervals, consistent with Corentin's
     % old program.
     selectIdx = ( (spike_times > start_time_trial-import_params_margin_before) ...
-        & (spike_times < end_time_trial+import_params_margin_after) );
+        & (spike_times < (end_time_trial+import_params_margin_after+trialEndTimePadding)));
     
     tmp_struct{jTrial}.Electrode = spike_locations(selectIdx,1);
     tmp_struct{jTrial}.Unit = spike_locations(selectIdx,2);
