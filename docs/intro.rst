@@ -7,7 +7,7 @@ Introduction
 What's ``cdttable``
 ===================
 
-``cdttable`` is a MATLAB program designed to convert **trial-based spiking neural data** into a universal format for later analysis.
+``cdttable`` is a MATLAB program designed to convert **trial-based spiking neural data** into a universal format (CDT table) for later analysis.
 
 
 Use cases of ``cdttable``
@@ -46,10 +46,10 @@ why ``cdttable`` is needed.
 -----------------------------
 This alignment of data according to marker codes looks simple conceptually but it's difficult to do it in a flexible way. Consider the following scenarios:
 
-* The alignment program ``A`` for experiment A may have three stimuli, yet experiment B only has one. Thus some hack to the program ``A`` is needed to work on experiment B.
+* The alignment program ``A`` for experiment A may have three stimuli, yet experiment B only has one. Thus some hack to the program ``A`` is needed for it to work on experiment B.
 * The alignment codes for different experiments may be different. For example, some may use fixation ON to align and some may use stimulus ON. This depends on purpose of analysis and the experiment. Again, some hack is needed if one doesn't want to write the second program from scratch.
 
-While writing such alignment code is arguably simple, having separate programs different experiments is not good practice for the following reasons.
+While writing such alignment code is arguably simple, having separate programs for different experiments is not good practice for the following reasons.
 
 #. there is much overlap between programs, and thus there is a waste of lines and redundancy.
 #. since such programs are easy to write, people tend to write them in a hacked fashion, and it's non-portable for other people to use for reproduction purpose.
@@ -82,7 +82,7 @@ CDT is the data structure used in Jason and Corentin's legacy code. I don't know
 
 
 
-An example of CDT table vs CDT
+An example of CDT table vs. CDT
 -------------------------------
 
 
