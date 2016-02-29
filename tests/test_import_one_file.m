@@ -1,4 +1,4 @@
-function test_import_one_file()
+function test_import_one_file(n)
 %TEST_IMPORT_ONE_FILE testing of :mat:func:`+cdttable.import_one_file`.
 %
 % the template file ``import_params_example.json`` is obtained by running
@@ -18,13 +18,18 @@ subTrialEndCodeExample = import_params_example.get('subtrials').get(0).clone();
 subTrialEndTimeExample = import_params_example.get('subtrials').get(1).clone();
 import_params_example.get('subtrials').clear()
 
-n = 100;
-maxMargin = 1;
-maxTrialLength = 5;
-maxTrialEndTimeVariation = 2;
+if nargin < 1 || isempty(n)
+    n = 100;
+end
+
 rng(0,'twister');
 for iFile = 1:n
     tic;
+
+    maxMargin = rand()*5; % 0-5
+    maxTrialLength = rand()*5+5;  % 5-10
+    maxTrialEndTimeVariation = rand()*5;  % 0-5
+
     [preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth] = ...
         generate_one_preprocess_result(maxMargin, maxTrialLength, maxTrialEndTimeVariation);
     % this is shallow copy, and subtrials are shared. so remember to clear
