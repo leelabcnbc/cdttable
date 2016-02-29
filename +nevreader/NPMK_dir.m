@@ -10,8 +10,8 @@ function NPMKDir = NPMK_dir()
 %% DATE      : 21-Jul-2015 22:17:41 $ 
 %% DEVELOPED : 8.3.0.532 (R2014a) 
 %% FILENAME  : NPMK_dir.m 
-import nevreader.root_dir
-NPMKDir = fullfile(root_dir(),'3rdparty','NPMK');
+% import nevreader.root_dir
+NPMKDir = fullfile(root_dir(),'3rdparty','NEV','NPMK');
 
 end
 

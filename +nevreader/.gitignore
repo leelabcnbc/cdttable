@@ -1,6 +1,5 @@
 # installed 3rd party files
 
 /json-schema-validator-2.2.6-lib.jar
-/NPMK/**
 /ce_read_cortex_index.m
 /ce_read_cortex_record.m
