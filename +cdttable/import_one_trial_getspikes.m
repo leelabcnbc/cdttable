@@ -15,8 +15,15 @@ ElectrodeWindow = trial_struct.Electrode(spikeWindowIndex);
 UnitWindow = trial_struct.Unit(spikeWindowIndex);
 TimeStampsWindow = trial_struct.TimeStamps(spikeWindowIndex);
 
-elecUnitMapLocal = unique([ElectrodeWindow, UnitWindow],'rows');
-
+assert(numel(ElectrodeWindow) == numel(UnitWindow));
+% handle the degenerate case where there's no spike at all.
+% in that case, ``unique`` would fail.
+if numel(ElectrodeWindow) > 0
+    elecUnitMapLocal = unique([ElectrodeWindow, UnitWindow],'rows');
+else
+    elecUnitMapLocal = zeros(0,2);
+end
+assert(size(elecUnitMapLocal,2)==2);
 numUnitLocal = size(elecUnitMapLocal,1);
 
 CDTTableRow.spikeElectrode = elecUnitMapLocal(:,1);

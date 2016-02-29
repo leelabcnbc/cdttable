@@ -51,9 +51,9 @@ CDTTableRow = import_one_trial_trial_start_stop_time(...
 
 
 %% get spikes in this window ( [trialStartTime,trialEndTime] ).
-CDTTableRow = import_NEV_trial_getspikes(CDTTableRow,trial_struct);
+CDTTableRow = import_one_trial_getspikes(CDTTableRow,trial_struct);
 %% get events in this window
-CDTTableRow = import_NEV_trial_getevents(CDTTableRow,trial_struct);
+CDTTableRow = import_one_trial_getevents(CDTTableRow,trial_struct);
 
 
 %% shift start and stop times with CDTTableRow.trialStartTime as start point.

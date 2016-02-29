@@ -22,11 +22,11 @@ trialStartTime = find_event_times_given_codes(...
 % this block gives the unpadded trial end time.
 
 if import_params.containsKey('trial_start_code') % if this exists, then the following two must exist by schema.
-    if import_params.contains('trial_end_code')
+    if import_params.containsKey('trial_end_code')
         trialEndTime = find_event_times_given_codes(...
             double(import_params.get('trial_end_code')),...
             trial_struct.EventCodes,trial_struct.EventTimes);
-    elseif import_params.contains('trial_end_time') % time based
+    elseif import_params.containsKey('trial_end_time') % time based
         trialEndTime = trialStartTime + ...
             double(import_params.get('trial_end_time'));
     else
@@ -38,7 +38,7 @@ else
 end
 
 % trial end must be bigger than trial start.
-assert(CDTTableRow.trialStartTime < CDTTableRow.trialEndTime);
+assert(trialStartTime < trialEndTime);
 
 % these are the final products of this block.
 % pad margin
@@ -48,8 +48,8 @@ CDTTableRow.trialEndTime = trialEndTime + double(import_params.get('margin_after
 CDTTableRow.trialStartTime = trialStartTime - double(import_params.get('margin_before'));
 
 %% assert that all subtrial times are greater than trialStartTime and smaller than trialEndTime
-assert(all(CDTTableRow.starttime) >= CDTTableRow.trialStartTime);
-assert(all(CDTTableRow.stoptime) <= CDTTableRow.trialEndTime);
+assert(all(CDTTableRow.starttime >= CDTTableRow.trialStartTime));
+assert(all(CDTTableRow.stoptime <= CDTTableRow.trialEndTime));
 
 end
 

@@ -20,9 +20,13 @@ import_params_example.get('subtrials').clear()
 
 n = 100;
 maxMargin = 1;
+maxTrialLength = 5;
+maxTrialEndTimeVariation = 2;
+rng(0,'twister');
 for iFile = 1:n
+    tic;
     [preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth] = ...
-        generate_one_preprocess_result();
+        generate_one_preprocess_result(maxMargin, maxTrialLength, maxTrialEndTimeVariation);
     % this is shallow copy, and subtrials are shared. so remember to clear
     % subtrials before testing.
     
@@ -59,8 +63,8 @@ for iFile = 1:n
         import_params_example.clone(), subTrialEndCodeExample, subTrialEndTimeExample);
     
     
-    trial_start_code = codesForUseIdx(1);
-    trial_end_code = codesForUseIdx(end);
+    trial_start_code = eventCodesPerTrial(codesForUseIdx(1));
+    trial_end_code = eventCodesPerTrial(codesForUseIdx(end));
     % add trial start code
     % add trial end code
     import_params_this.put('trial_start_code', int32(trial_start_code));
@@ -70,13 +74,15 @@ for iFile = 1:n
     % case 3, with trial marker, end time.
     
     % add trial end time
-    import_params_this.remove('trial_end_code')
-    trial_end_time = findMinTimeSpanBetweenCodes(codesForUseIdx([1,end]), eventTimesTruth);
+    import_params_this.remove('trial_end_code');
+    trial_end_time = findMaxTimeSpanBetweenCodes(codesForUseIdx([1,end]), eventTimesTruth);
+    trial_end_time = rand()*maxTrialEndTimeVariation + trial_end_time;
     assert(isscalar(trial_end_time));
     import_params_this.put('trial_end_time', trial_end_time);
     check_result(import_params_this, preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth);
     
     disp(iFile);
+    toc;
 end
 
 add_rm_dependency('rm');
@@ -84,7 +90,10 @@ add_rm_dependency('rm');
 end
 
 function check_result(import_params_this, preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth)
-
+% we need to get the start time and end time window of each trial.
+import cdttable.import_one_file
+CDTTable = import_one_file(preprocess_result, import_params_this);
+disp(numel(CDTTable.condition));
 end
 
 
@@ -131,7 +140,19 @@ minTimeSpanBetweenCodes = cell2mat(minTimeSpanBetweenCodes);
 minTimeSpanBetweenCodes = min(minTimeSpanBetweenCodes,[],1);
 end
 
-function [preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth] = generate_one_preprocess_result()
+function maxTimeSpanBetweenCodes= findMaxTimeSpanBetweenCodes(codesForUseIdxNoTrialMarker, eventTimesTruth)
+maxTimeSpanBetweenCodes = cellfun(@(x) diff(x(codesForUseIdxNoTrialMarker)), eventTimesTruth,'UniformOutput',false);
+maxTimeSpanBetweenCodes = cellfun(@(x) x(:)', maxTimeSpanBetweenCodes,'UniformOutput',false);
+maxTimeSpanBetweenCodes = cell2mat(maxTimeSpanBetweenCodes);
+maxTimeSpanBetweenCodes = max(maxTimeSpanBetweenCodes,[],1);
+end
+
+
+function [preprocess_result, eventTimesTruth, spikeTimesTruth, spikeLocationsTruth] = ...
+    generate_one_preprocess_result(maxMargin, maxTrialLength, maxTrialEndTimeVariation)
+
+% maxMargin is the maximum padding that would be chosen by the testing
+% program. I need to have greater margin.
 
 % randomly generate one preprocess result, plus the ground truth.
 preprocess_result = struct();
@@ -141,11 +162,16 @@ numCode = randi([10, 20]);
 codeRange = -100:100;
 eventCodesPerTrial = codeRange(randperm(numel(codeRange), numCode));
 %% 2. choose number of trials. must be >=1 by design.
-numTrial = randi([1,1000]);
+numTrial = randi([1,500]);
 preprocess_result.event_codes = repmat({eventCodesPerTrial(:)},numTrial,1);
 
 %% 3. randomly compute the duration of each trial, and assign event codes with the markers.
-trialLengthUnpadded = rand([numTrial, 1])*2 + 1;  % trials are between 1 to 3 seconds.
+trialLengthUnpadded = rand([numTrial, 1])*maxTrialLength;  
+% trials are between 0 to maxTrialLength seconds.
+% I will simply allow trial_end_time to be from almost maxTrialLength to
+% (almost maxTrialLength)+maxTrialEndTimeVariation, so I need an additional
+% padding of maxTrialLength+maxTrialEndTimeVariation for padding after.
+
 eventTimesTruth = cell(numTrial,1);
 
 for iTrial = 1:numTrial
@@ -158,8 +184,8 @@ end
 % 1 sec away from start codes of the whole trial, so that the ground truth
 % can give me the spikes in the padding, without fear that some is lost.
 
-trialPaddingBefore = rand([numTrial, 1])+1;
-trialPaddingAfter = rand([numTrial, 1])+1;
+trialPaddingBefore = rand([numTrial, 1])+maxMargin;
+trialPaddingAfter = rand([numTrial, 1])+maxMargin+maxTrialEndTimeVariation+maxTrialLength;
 trialLengthPadded = trialLengthUnpadded + trialPaddingBefore + trialPaddingAfter;
 %% 5. generate some spikes within each trial's padded window, each with random electrode and unit.
 spikeTimesTruth = cell(numTrial,1);

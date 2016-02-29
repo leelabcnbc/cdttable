@@ -10,6 +10,7 @@ function [ CDTTable ] = import_one_file( preprocess_result, import_params )
 % .. seealso:: :mat:func:`+cdttable.import_one_trial`,
 
 import cdttable.read_import_params
+import cdttable.import_one_trial
 
 event_codes = preprocess_result.event_codes;
 event_times = preprocess_result.event_times;
@@ -18,6 +19,9 @@ spike_locations = preprocess_result.spike_locations;
 assert(iscell(event_codes) && iscell(event_times));
 assert(numel(event_codes)==numel(event_times));
 assert(numel(event_codes)>=1, 'at least one trial!');
+
+import_params_margin_before = double(import_params.get('margin_before'));
+import_params_margin_after = double(import_params.get('margin_after'));
 
 %% for cellfun applying processing function to each trial.
 tmp_struct = cell(numel(event_codes),1);
@@ -45,7 +49,7 @@ end
 %% parallel processing of trials. Should try out to see which is better.
 CDTTableByTrials = cell(numel(event_codes),1);
 parfor iTrial = 1:numel(event_codes)
-    CDTTableByTrials{iTrial} = import_one_trial(tmp_struct{iTrial}, import_params)
+    CDTTableByTrials{iTrial} = import_one_trial(tmp_struct{iTrial}, import_params);
 end
 
 %% create a cell array for each column in the whole table.
