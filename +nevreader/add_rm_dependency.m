@@ -2,7 +2,7 @@ function add_rm_dependency( choice )
 %ADD_RM_DEPENDENCY add or remove java class dependency
 %
 %   Detailed explanation goes here
-import cdttable.root_dir
+import nevreader.root_dir
 javalibPath = fullfile(root_dir(), 'json-schema-validator-2.2.6-lib.jar');
 currentJavaClassPath = javaclasspath('-dynamic');
 currentJavaClassPathStatic = javaclasspath('-static');

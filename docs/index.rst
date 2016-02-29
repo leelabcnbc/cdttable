@@ -15,6 +15,7 @@ Contents:
    :maxdepth: 2
 
    cdttable
+   nevreader
    tests_mat
    tests_py
 
