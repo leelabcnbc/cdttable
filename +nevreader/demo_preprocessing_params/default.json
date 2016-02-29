@@ -1,0 +1,8 @@
+{
+  "comment":"default preprocessing params for NEV/CTX reading",
+  "spike_no_secondary_unit":true,
+  "spike_no_255_unit":true,
+  "spike_no_0_unit":false,
+  "throw_high_byte":true,
+  "fix_nev":true
+}

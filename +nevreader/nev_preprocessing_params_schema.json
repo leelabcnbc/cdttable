@@ -1,0 +1,32 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "type":"object",
+  "properties":{
+    "comment":{
+      "type":"string"
+    },
+    "spike_no_secondary_unit":{
+      "type":"boolean"
+    },
+    "spike_no_255_unit":{
+      "type":"boolean"
+    },
+    "spike_no_0_unit":{
+      "type":"boolean"
+    },
+    "throw_high_byte":{
+      "type":"boolean"
+    },
+    "fix_nev":{
+      "type":"boolean"
+    }
+  },
+  "required":[
+    "spike_no_secondary_unit",
+    "spike_no_255_unit",
+    "spike_no_0_unit",
+    "throw_high_byte",
+    "fix_nev"
+  ],
+  "additionalProperties":false
+}

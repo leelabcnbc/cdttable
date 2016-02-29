@@ -4,6 +4,7 @@ function [ preprocessed_result ] = preprocessing_func( NEV_filename, preprocessi
 
 import nevreader.read_preprocessing_params
 import nevreader.fix_NEV_CTX
+import nevreader.add_rm_dependency
 add_rm_dependency('add');
 if nargin < 3 || isempty(CTX_filename)
     CTX_filename = [];

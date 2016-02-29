@@ -1,0 +1,20 @@
+{
+  "comment":"params for experiment edge_test, in Corentin's data",
+  "subtrials":[
+    {
+      "start_code":25,
+      "end_code":26
+    },
+    {
+      "start_code":27,
+      "end_code":28
+    },
+    {
+      "start_code":29,
+      "end_code":30
+    }
+  ],
+  "trial_to_condition_func":"(NEV_code, idx) (NEV_code(6)-192)*64+(NEV_code(7)-192)+1",
+  "margin_before":0.3,
+  "margin_after":0.3
+}
