@@ -1,4 +1,4 @@
-function [NEV_codes_new, NEV_times_new, debugging_info] = fix_NEV_CTX(NEV_file_name, ...
+function [NEV_codes_new, NEV_times_new, debugging_info, NEV_NMPK] = fix_NEV_CTX(NEV_file_name, ...
     fixing, trial_template, CTX_file_name, throw_high_byte)
 % FIX_NEV_CTX master function to read good trials from NEV file, with CTX file's help if possible.
 %
@@ -32,7 +32,8 @@ fixed_NEV_trials_by_CTX_array = []; % the indicies of trials that are additional
 errors_fixed_by_CTX = 0; % number of trials additionally fixed by CTX.
 
 % NEV_rewarded_trials is the indices of rewarded trials.
-[NEV_codes_new, NEV_times_new, NEV_rewarded_trials] = fix_NEV_file(NEV_file_name, fixing, trial_template, throw_high_byte);
+[NEV_codes_new, NEV_times_new, NEV_rewarded_trials, ...
+    ~, ~, ~, NEV_NMPK] = fix_NEV_file(NEV_file_name, fixing, trial_template, throw_high_byte);
 
 debugging_info.NEV_rewarded_trials = NEV_rewarded_trials;
 
