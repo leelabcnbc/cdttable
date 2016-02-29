@@ -15,6 +15,7 @@ Contents:
    :maxdepth: 2
 
    intro
+   CDT_use/user_guide
    cdttable
    nevreader
    tests_mat
