@@ -2,6 +2,9 @@
 Import Parameters File Specification
 ************************************
 
+| Yimeng Zhang
+| Mar. 1, 2016
+
 This document describes how to write the import parameters file for :mat:func:`+cdttable.import_files`.
 
 The import parameters are specified by a JSON file with a specific format. One example is given below.
