@@ -28,6 +28,7 @@ CTX_list = {
     fullfile(basePathCTX,'GA110512.4');
     };
 
+%% get path for parameters
 templatePath = fullfile(nevreader.root_dir(), 'demo_trial_templates', '3ec_edge_or.json');
 preprocessParamsPath = fullfile(nevreader.root_dir(), 'demo_preprocessing_params', 'default.json');
 importParamsPath = fullfile(cdttable.root_dir(), 'demo_import_params', 'edge_test.json');
