@@ -17,10 +17,7 @@ Contents:
    intro
    installation
    CDT_use/user_guide
-   cdttable
-   nevreader
-   tests_mat
-   tests_py
+   reference_doc
 
 
 Indices and tables
