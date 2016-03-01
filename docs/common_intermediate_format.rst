@@ -5,10 +5,13 @@ Common Intermediate Format (CIF)
 | Yimeng Zhang
 | Feb. 29, 2016
 
-.. todo:: enforce all the constraints in the actual code, and test that shuffling indeed works.
-
 To use ``cdttable``, the user must present their spiking neural data in a particular format called
-Common Intermediate Format (CIF). The spiking neural data for N trials and M spikes
+Common Intermediate Format (CIF). To see some examples of CIF, simply run :mat:func:`tests.generate_one_preprocess_result`, and the first argument returned by the function is a valid CIF.
+
+Formal Specification
+====================
+
+The CIF for some spiking neural data for N trials and M spikes
 must be a MATLAB ``struct`` with the following fields.
 
 ``event_codes``
@@ -38,3 +41,4 @@ must be a MATLAB ``struct`` with the following fields.
 Notice that all timestamps (for codes and spikes) must be w.r.t. to some common origin, such as start of recording.
 Such timestamps are the most natural ones when extracted from the raw recording file, but may not be the case if they
 are extracted from the experiment control program, which may use the start of each trial as time origin.
+

@@ -46,8 +46,9 @@ Run the demo program
 
 change directory to ``/demos`` and run ``import_NEV_demo``. You should see a file ``import_NEV_demo_result.mat`` generated under ``/demos/import_NEV_demo_results``.
 
-.. todo:: add link to template specification, parameter specification, and NEV preprocessing specification.
-.. todo:: add link to preprocessed intermedaite format.
+.. todo:: add link to template specification, parameter specification.
+
+.. _what-is-in-the-demo:
 
 What's done by the demo
 -----------------------

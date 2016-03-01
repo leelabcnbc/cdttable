@@ -38,7 +38,7 @@ else
 end
 
 % trial end must be bigger than trial start.
-assert(trialStartTime < trialEndTime);
+assert(trialStartTime <= trialEndTime);
 
 % these are the final products of this block.
 % pad margin

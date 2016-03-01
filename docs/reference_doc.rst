@@ -8,6 +8,7 @@ This document lists the documentation extracted from the source code of ``cdttab
 .. toctree::
 
     cdttable
+    demos
     nevreader
     tests_mat
     tests_py

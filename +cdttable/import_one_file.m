@@ -11,14 +11,16 @@ function [ CDTTable ] = import_one_file( preprocess_result, import_params )
 
 import cdttable.read_import_params
 import cdttable.import_one_trial
+import cdttable.check_preprocess_result
+
+% check preprocess result
+assert(check_preprocess_result(preprocess_result));
 
 event_codes = preprocess_result.event_codes;
 event_times = preprocess_result.event_times;
 spike_times = preprocess_result.spike_times;
 spike_locations = preprocess_result.spike_locations;
-assert(iscell(event_codes) && iscell(event_times));
-assert(numel(event_codes)==numel(event_times));
-assert(numel(event_codes)>=1, 'at least one trial!');
+
 
 import_params_margin_before = double(import_params.get('margin_before'));
 import_params_margin_after = double(import_params.get('margin_after'));
