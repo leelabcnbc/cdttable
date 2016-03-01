@@ -51,7 +51,7 @@ change directory to ``/demos`` and run ``import_NEV_demo``. You should see a fil
 
 What's done by the demo
 -------------------------
-Basically, this demo program converts two NEV files into two CDT tables, one for each file. These two NEV files are the part of the data for an old experiment in our lab. During each trial, 3 stimuli were presented to the monkey in sequence, and there are 416*3 stimuli in total (so each stimulus only presented once).
+Basically, this demo program converts two NEV files into two CDT tables, one for each file. These two NEV files are the part of the data for an old experiment in our lab. During each trial, 3 stimuli were presented to the monkey in sequence, and there are 416 trials and 416*3 stimuli in total for each file (so each stimulus only presented once per file).
 
 #. In the first cell block of the code (``%% load file list.``), the filelists of NEV and CTX files are constructed. CTX files are just to double the correctness of event codes in the NEV files and can be omitted.
 #. In the second block (``%% get path for parameters``), the paths of parameter files for the conversion are specified. There are three parameter file, two (``templatePath``, ``preprocessParamsPath``) for the :mat:mod:`+nevreader` package to convert NEV to a preprocessed intermediate format, which can be ignored for now, and the third one ``importParamsPath`` specifies how to extract and align event codes. The content of the file (which is a JSON document) is as follows.
