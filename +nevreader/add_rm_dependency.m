@@ -13,11 +13,17 @@ if any(strcmp(currentJavaClassPathStatic,javalibPath))
 end
 
 if isequal(choice, 'add')
-    assert(all(~strcmp(currentJavaClassPath,javalibPath)))
-    javaaddpath(javalibPath);
+    if any(strcmp(currentJavaClassPath,javalibPath))
+        return
+    else
+        javaaddpath(javalibPath);
+    end
 elseif isequal(choice, 'rm')
-    assert(sum(strcmp(currentJavaClassPath,javalibPath))==1);
-    javarmpath(javalibPath);
+    if all(~strcmp(currentJavaClassPath,javalibPath))
+        return
+    else
+        javarmpath(javalibPath);
+    end
 else
     error('the option must be add or rm!');
 end
