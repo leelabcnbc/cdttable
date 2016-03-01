@@ -37,7 +37,8 @@ source_parsers = {
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
-    'sphinxcontrib.matlab'
+    'sphinxcontrib.matlab',
+    'sphinx.ext.todo'
 ]
 matlab_src_dir = os.path.abspath('..')
 primary_domain = None
@@ -295,7 +296,7 @@ texinfo_documents = [
 
 autodoc_default_flags = ['members', 'undoc-members',
     'private-members', 'show-inheritance']
-
+todo_include_todos = True
 
 
 
