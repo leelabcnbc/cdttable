@@ -30,7 +30,7 @@ How to install
 #. obtain the latest release of ``cdttable`` from https://github.com/leelabcnbc/cdttable by download the lastest release under https://github.com/leelabcnbc/cdttable/releases/
 #. (For Mac / Linux) Open a terminal window and install 3rd party dependencies. This has two steps.
     #. Change directory to ``/3rdparty``, and run ``./install_3rdparty.sh``. This is required.
-    #. Change directory to ``/3rdparty/NEV``, and run ``./install_3rdparty.sh``. This is not necessary if you don't want to run the demo code or use the provided :mat:mod:`+nevreader` to preprocess NEV files.
+    #. Change directory to ``/3rdparty/NEV``, and run ``./install_NEV_3rdparty.sh``. This is not necessary if you don't want to run the demo code or use the provided :mat:mod:`+nevreader` to preprocess NEV files.
 #. (For Windows) do the above step manually.
     #. copy ``/3rdparty/json-schema-validator-2.2.6-lib.jar`` to ``/+cdttable``.
     #. In ``/3rdparty/NEV``, copy ``json-schema-validator-2.2.6-lib.jar``, ``ce_read_cortex_index.m``, and ``ce_read_cortex_record.m`` to ``/+nevreader``, and expand ``NPMK-4.0.0.0.zip``. After this extraction, there should be a folder called ``NPMK`` in ``/3rdparty/NEV/``, and there should be many files inside it instead of a single nested folder.
