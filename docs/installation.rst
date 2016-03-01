@@ -23,12 +23,10 @@ How to install
 ==============
 
 .. todo:: verify the program on Windows.
-.. todo:: add credits to the 3rd party files.
-.. todo:: more doc on how to revoke the classpath hack.
 
 
 #. obtain the latest release of ``cdttable`` from https://github.com/leelabcnbc/cdttable by download the lastest release under https://github.com/leelabcnbc/cdttable/releases/
-#. (For Mac / Linux) Open a terminal window and install 3rd party dependencies. This will only do some file copying and extraction inside the program directory, and won't affect the system globally (check the scripts or see the Windows step to know what really happens). This has two steps.
+#. (For Mac / Linux) Open a terminal window and install :ref:`third-party-libs`. This will only do some file copying and extraction inside the program directory, and won't affect the system globally (check the scripts or see the Windows step to know what really happens). This has two steps.
     #. Change directory to ``/3rdparty``, and run ``./install_3rdparty.sh``. This is required.
     #. Change directory to ``/3rdparty/NEV``, and run ``./install_NEV_3rdparty.sh``. This is not necessary if you don't want to run the demo code or use the provided :mat:mod:`+nevreader` to preprocess NEV files.
 #. (For Windows) do the above step manually.
@@ -36,9 +34,23 @@ How to install
     #. In ``/3rdparty/NEV``, copy ``json-schema-validator-2.2.6-lib.jar``, ``ce_read_cortex_index.m``, and ``ce_read_cortex_record.m`` to ``/+nevreader``, and expand ``NPMK-4.0.0.0.zip``. After this extraction, there should be a folder called ``NPMK`` in ``/3rdparty/NEV/``, and there should be many files inside it instead of a single nested folder.
 #. (Strongly recommended) open MATLAB, change directory to root directory of the program, run ``hack_javapath.m``, and restart MATLAB (must restart MATLAB for the change to take effect).
     * This is needed because the program depends on some Java packages yet some of them are already shipped with the MATLAB, but in older versions, which will shadow the packages provided by ``cdttable``. This ``hack_javapath.m`` will make the packages from my program take precedence. The old packages from MATLAB are too old so that they will usually break ``cdttable``. Of three versions I tested, only R2015b works without this hack. Notice that this hack would affect MATLAB **globally**, and you may want to revoke it when not using the package.
+    * to revoke the hack, just replace the result of evaluating ``fullfile(matlabPrefDir, 'javaclasspath.txt.bak')`` with ``fullfile(matlabPrefDir, 'javaclasspath.txt')`` if the first file exists. Otherwise simply delete the second one.
 #. Every time before using the program, do the following.
     * open MATLAB and change directory to root directory of ``cdttable``.
     * run ``initialize_path`` in MATLAB to add path. Or you can do this manually.
+
+
+.. _third-party-libs:
+
+Third party libraries
+---------------------
+
+This lists all third party dependencies included in ``cdttable``.
+
+* ``json-schema-validator-2.2.6-lib.jar``: the "full" 2.2.6 version of https://github.com/fge/json-schema-validator, downloaded from https://bintray.com/fge/maven/json-schema-validator/view (direct link https://bintray.com/artifact/download/fge/maven/com/github/fge/json-schema-validator/2.2.6/json-schema-validator-2.2.6-lib.jar)
+* ``ce_read_cortex_index.m``, ``ce_read_cortex_record.m``: copied from the ``CortexExplorer`` subfolder of ftp://helix.nih.gov/lsn/matoff/matoff_076_4apr14.zip with line endings changed to LF instead of CRLF.
+* ``NPMK-4.0.0.0.zip``: the 4.0.0.0 version of NPMK (Neural Processing Matlab Kit) https://github.com/BlackrockMicrosystems/NPMK (direct link https://github.com/BlackrockMicrosystems/NPMK/releases/download/4.0.0.0/NPMK.zip)
+
 
 Run the demo program
 ====================
