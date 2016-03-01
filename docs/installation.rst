@@ -22,13 +22,12 @@ If you also want to run all tests and generate the doc, apart from MATLAB, a Pyt
 How to install
 ==============
 
-.. todo:: put some release tags on the GitHub.
 .. todo:: verify the program on Windows.
 .. todo:: add credits to the 3rd party files.
 .. todo:: more doc on how to revoke the classpath hack.
 
 
-#. obtain the latest version of ``cdttable`` from https://github.com/leelabcnbc/cdttable by ``git clone`` the repository or clicking "Download ZIP" on the page.
+#. obtain the latest release of ``cdttable`` from https://github.com/leelabcnbc/cdttable by download the lastest release under https://github.com/leelabcnbc/cdttable/releases/
 #. (For Mac / Linux) Open a terminal window and install 3rd party dependencies. This has two steps.
     #. Change directory to ``/3rdparty``, and run ``./install_3rdparty.sh``. This is required.
     #. Change directory to ``/3rdparty/NEV``, and run ``./install_3rdparty.sh``. This is not necessary if you don't want to run the demo code or use the provided :mat:mod:`+nevreader` to preprocess NEV files.
