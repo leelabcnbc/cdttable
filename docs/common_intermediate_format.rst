@@ -8,7 +8,7 @@ Common Intermediate Format (CIF)
 .. todo:: enforce all the constraints in the actual code, and test that shuffling indeed works.
 
 To use ``cdttable``, the user must present their spiking neural data in a particular format called
-Common Intermediate Format (CIF). The spiking neural data for N trials
+Common Intermediate Format (CIF). The spiking neural data for N trials and M spikes
 must be a MATLAB ``struct`` with the following fields.
 
 ``event_codes``

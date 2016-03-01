@@ -53,17 +53,21 @@ What's done by the demo
 -----------------------
 Basically, this demo program converts two NEV files into two CDT tables, one for each file. These two NEV files are the part of the data for an old experiment in our lab. During each trial, 3 stimuli were presented to the monkey in sequence, and there are 416 trials and 416*3 stimuli in total for each file (so each stimulus only presented once per file).
 
-#. In the first cell block of the code (``%% load file list.``), the filelists of NEV and CTX files are constructed. CTX files are just to double the correctness of event codes in the NEV files and can be omitted.
-#. In the second block (``%% get path for parameters``), the paths of parameter files for the conversion are specified. There are three parameter file, two (``templatePath``, ``preprocessParamsPath``) for the :mat:mod:`+nevreader` package to convert NEV to a preprocessed intermediate format, which can be ignored for now, and the third one ``importParamsPath`` specifies how to extract and align event codes. The content of the file (which is a JSON document) is as follows.
+
+    .. literalinclude:: ../demos/import_NEV_demo.m
+        :language: matlab
+
+
+#. In the first cell block of the code (``%% load file list.``), the filelists of NEV and CTX files are constructed. CTX files are just to double check the correctness of event codes in the NEV files and can be omitted.
+#. In the second block (``%% get path for parameters``), the paths of parameter files for the conversion are specified. There are three parameter file, two (``templatePath``, ``preprocessParamsPath``) for the :mat:mod:`+nevreader` package to convert NEV to a common intermediate format, which is specified in :doc:`common_intermediate_format`, and the third one ``importParamsPath`` specifies how to extract and align event codes. The first two files are specific to :mat:mod:`+nevreader` and will be ignored for now, except that you should know they convert NEV files into the :doc:`common_intermediate_format`. The content of the third file (which is a JSON document) is as follows.
 
     .. literalinclude:: ../+cdttable/demo_import_params/edge_test.json
         :language: json
-        :linenos:
 
     * ``comment`` is just some description of the import parameters, and is ignored by the program.
     * ``subtrials`` is the most important field in the file, whose elements specify the markers of three stimuli in each trial. In this case, stimulus 1 ON/OFF is marked by 25/26, stimulus 2 ON/OFF by 27/28, and stimulus 3 ON/OFF by 29/30.
     * ``trial_to_condition_func`` specifies how to extract the condition number from event codes in the trial and the trial index. In this case, the condition number is encoded by the quotient and and remainder of the condition number divided by 64, and the quotient and remainder are added by 192 in the end to avoid confusion with other event codes.
-    * ``margin_before`` and ``margin_after`` specifies the margins in spike extraction window. Given the three subtrials as specified above, for each trial, the program would collect all spikes and events between ``(t(25) - margin_before, t(30) + margin_after)``, where ``t(x)`` refers to the timestamp for event code with value x. For example, if for some particular trial, code 25 appears in 133.5 second (relative to some reference time, say start of recording), and code 30 appears in 134.0 second, then the program would collect all codes and spikes during time window ``(133.2s, 134.3s)`` (notice it's open interval; it's for compatibility with legacy program in our lab). For more info on how to specify the import parameter file, see TODO.
+    * ``margin_before`` and ``margin_after`` specifies the margins in spike extraction window. Given the three subtrials as specified above, for each trial, the program would collect all spikes and events between ``(t(25) - margin_before, t(30) + margin_after)``, where ``t(x)`` refers to the timestamp for event code with value x. For example, if for some particular trial, code 25 appears in 133.5 second (relative to some reference time, say start of recording), and code 30 appears in 134.0 second, then the program would collect all codes and spikes during time window ``(133.2s, 134.3s)`` (notice it's open interval; it's for compatibility with legacy program in our lab). For more info on how to specify the import parameter file, see :doc:`import_params_schema`.
 
 #. In the third block (``%% do the actual conversion.``), the actual conversion is performed, by calling :mat:func:`+cdttable.import_files`, and passing in the preprocessing function for NEV files :mat:func:`+nevreader.preprocessing_func`, the arguments to pass into the preprocessing function ``argList``, and the path of import parameter file ``importParamsPath``.
 #. In the fourth block (``%% save the result.``), the resultant CDT tables are saved as ``import_NEV_demo_result.mat``.

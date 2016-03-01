@@ -1,7 +1,7 @@
 function import_NEV_demo()
 % IMPORT_NEV_DEMO ...
 %
-%   a demo showing importing NEV files using import_NEV package.
+%   a demo showing importing NEV files using +nevreader and +cdttable package.
 %
 % Yimeng Zhang
 % Computer Science Department, Carnegie Mellon University
@@ -74,10 +74,3 @@ save([savePath '.mat'],'CDTTables','savePath','metaInfo');
 
 
 end
-
-
-
-
-% Created with NEWFCN.m by Frank González-Morphy
-% Contact...: frank.gonzalez-morphy@mathworks.de
-% ===== EOF ====== [import_NEV_demo.m] ======
