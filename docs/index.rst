@@ -15,6 +15,7 @@ Contents:
    :maxdepth: 2
 
    intro
+   installation
    CDT_use/user_guide
    cdttable
    nevreader

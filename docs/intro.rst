@@ -2,6 +2,8 @@
 Introduction
 ************
 
+| Yimeng Zhang
+| Feb. 29, 2016
 
 
 What's ``cdttable``
@@ -39,6 +41,13 @@ Usually, there's a set of event codes (or markers) associated with each trial, a
 
 etc.
 
+Therefore, the raw data should consist of the following components.
+
+* pairs of (event code, event timestamps) for all trials. Depending on the setup, these codes may be saved in two following forms. Notice that ``cdttable`` expects the second form of event information, and if your raw data is of the first form, you need to write some preprocessing functions to find the good trials and split the codes and timestamps.
+    * codes for all (successful and unsuccessful) trials are be lumped together in a big vector (same for event timestamps). This is the case if the event information is obtained from some trial-agnostic file format, say NEV from Blackrock Microsystems.
+    * only successful trials are kept, and codes and timestamps are splitted into trials. This would be the case if the event information is obtained from the experiment control program itself.
+* a list of timestamps for spikes for each combination of electrode and unit (this is the case for multi unit recording, and it can be different for other domains). Usually, these timestamps are saved without the notion of trial, with some hardware from Blackrock Microsystems or Plexon.
+
 After collecting the data, the next step is usually to split the spiking data into trials, and align them according to some event markers, such as stimulus ON, etc. This enables further analysis such as plotting PSTH, etc.
 
 
@@ -56,21 +65,26 @@ While writing such alignment code is arguably simple, having separate programs f
 #. since such programs are similar, it is probably OK to copy-and-paste and then hack the program. But this makes the program prone to bugs. For example, there can be some **dirty tricks** in the original code, perhaps for some specific purposes of the experiment. It's pretty easy for the new program to "inherit" these tricks as well, and nobody would notice it until much further in the analysis...
 
 
-Motivation
+The solution to the above stated problem is to have some master program that can handle all needs of data alignment and for each particular analysis, a different set of parameters is passed into the program. Thus, code reuse is achieved, and people can easily modify the alignment procedure by changing parameter, without hacking a separate program for each experiment again. ``cdttable`` is a solution to the problem.
+
+
+How to start
 ===================
+Check :doc:`/installation` to begin using ``cdttable``.
+
+
+Random things
+===================
+
+
+Motivation
+-------------
 
 ``cdttable`` was initially designed with the following purpose. Simply put, I want data import to be reproducible and flexible.
 
     The existing analysis tools in our lab (used by Jason and Corentin) are not flexible or well-structured. The biggest problem is that, messy **code change** is necessary for each different experiment. To import data for an new experiment, a considerable amount of code has to be modified. When importing data of old experiments, the code has to be modified again, all over different files. This makes our data import extremely difficult to reproduce and debug. Therefore, based on existing code, I want to make a better package for importing neural data. I hope that this code can evolve well into the future.
 
 Therefore, I wrote a package to solve the data import problem (now at `here <https://github.com/leelabcnbc/yimeng_neural_analysis_toolbox/>`_). However, it seems that the problem mentioned above exists in many labs as well. Therefore, I refactored the old package so that it can be general enough to accomodate the different setups of different labs.
-
-
-
-
-
-Random things
-===================
 
 
 
