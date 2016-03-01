@@ -5,7 +5,7 @@ Common Intermediate Format (CIF)
 | Yimeng Zhang
 | Feb. 29, 2016
 
-.. todo: enforce all the constraints in the code.
+.. todo:: enforce all the constraints in the actual code, and test that shuffling indeed works.
 
 To use ``cdttable``, the user must present their spiking neural data in a particular format called
 Common Intermediate Format (CIF). The spiking neural data for N trials
