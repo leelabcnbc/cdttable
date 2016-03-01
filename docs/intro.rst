@@ -51,8 +51,8 @@ Therefore, the raw data should consist of the following components.
 After collecting the data, the next step is usually to split the spiking data into trials, and align them according to some event markers, such as stimulus ON, etc. This enables further analysis such as plotting PSTH, etc.
 
 
-why ``cdttable`` is needed.
------------------------------
+why ``cdttable`` is needed
+--------------------------
 This alignment of data according to marker codes looks simple conceptually but it's difficult to do it in a flexible way. Consider the following scenarios:
 
 * The alignment program ``A`` for experiment A may have three stimuli, yet experiment B only has one. Thus some hack to the program ``A`` is needed for it to work on experiment B.
@@ -69,16 +69,16 @@ The solution to the above stated problem is to have some master program that can
 
 
 How to start
-===================
+============
 Check :doc:`/installation` to begin using ``cdttable``.
 
 
 Random things
-===================
+=============
 
 
 Motivation
--------------
+----------
 
 ``cdttable`` was initially designed with the following purpose. Simply put, I want data import to be reproducible and flexible.
 

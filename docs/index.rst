@@ -12,12 +12,14 @@ into a universal format called CDT table.
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   intro
-   installation
-   CDT_use/user_guide
-   reference_doc
+    intro
+    installation
+    common_intermediate_format
+    import_params_schema
+    CDT_use/user_guide
+    reference_doc
 
 
 Indices and tables

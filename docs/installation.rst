@@ -9,18 +9,18 @@ System Requirements
 ===================
 
 For users
---------------------
+---------
 * MATLAB R2012b or higher should work, although I personally only tested the program on R2012b, R2014a, and R2015b.
 
 For developers
---------------------
+--------------
 If you also want to run all tests and generate the doc, apart from MATLAB, a Python 2.7.x environment plus the following packages (the ones in ``/requirements.txt`` of the repository) should do.
 
 .. literalinclude:: ../requirements.txt
 
 
 How to install
-===================
+==============
 
 .. todo:: put some release tags on the GitHub.
 .. todo:: verify the program on Windows.
@@ -42,7 +42,7 @@ How to install
     * run ``initialize_path`` in MATLAB to add path. Or you can do this manually.
 
 Run the demo program
-=====================
+====================
 
 change directory to ``/demos`` and run ``import_NEV_demo``. You should see a file ``import_NEV_demo_result.mat`` generated under ``/demos/import_NEV_demo_results``.
 
@@ -50,7 +50,7 @@ change directory to ``/demos`` and run ``import_NEV_demo``. You should see a fil
 .. todo:: add link to preprocessed intermedaite format.
 
 What's done by the demo
--------------------------
+-----------------------
 Basically, this demo program converts two NEV files into two CDT tables, one for each file. These two NEV files are the part of the data for an old experiment in our lab. During each trial, 3 stimuli were presented to the monkey in sequence, and there are 416 trials and 416*3 stimuli in total for each file (so each stimulus only presented once per file).
 
 #. In the first cell block of the code (``%% load file list.``), the filelists of NEV and CTX files are constructed. CTX files are just to double the correctness of event codes in the NEV files and can be omitted.
