@@ -13,13 +13,15 @@ must be a MATLAB ``struct`` with the following fields.
 
 ``event_codes``
     a N x 1 cell array, i-th element being a column vector storing the event codes for i-th trial. The order of
-    event codes must reflect the actual temporal order they appear, which is natural for real data. The N elements
-    can be shuffled without affecting the correctness of the program.
+    event codes must reflect the actual temporal order they appear, which is natural for real data.
+    The order of N elements should follow the actual temporal order trials appear. In any case, the i-th element in the
+    cell array will be considered as the i-th trial by the program, and passed in ``i`` when computing condition number.
 
 ``event_times``
     a N x 1 cell array, i-th element being a column vector of same length as i-th element in ``event_codes``,
-    storing the timestamps of event codes. The timestamps with in any trial must be non-decreasing, which is natural
-    for real data. Similarly, the elements can be shuffled, but should match that of ``event_codes``.
+    storing the timestamps of event codes.
+    The timestamps with in any trial must be non-decreasing and match the order of corresponding codes, which is natural
+    for real data. Similarly, the order of N elements should follow the actual temporal order trials appear.
 
 ``spike_times``
     a M x 1 column vector, specifying the timestamps of all spikes in the data. The order of spikes can be shuffled
