@@ -1,3 +1,4 @@
-/import_NEV_demo_results/import_NEV_demo_result.mat
+/import_NEV_demo_results/**
+!/import_NEV_demo_results/.gitignore
 /fix_NEV_demo_data/**
 !/fix_NEV_demo_data/.gitignore
