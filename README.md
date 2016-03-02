@@ -1,4 +1,4 @@
-# `cdttable`
+# cdttable
 
 [![Documentation Status](http://readthedocs.org/projects/cdttable/badge/?version=latest)](http://cdttable.readthedocs.org/en/latest/?badge=latest)
 
