@@ -24,7 +24,7 @@ NEV_NMPK=openNEV(NEV_file_name,'nosave','nomat','noread');
 rmpath(genpath(NPMK_dir()));
 NEV_codes_old=double(NEV_NMPK.Data.SerialDigitalIO.UnparsedData(1:end));%codes
 NEV_times_old=double(NEV_NMPK.Data.SerialDigitalIO.TimeStampSec(1:end));%time stamps of codes
-
+assert(all(NEV_NMPK.Data.SerialDigitalIO.InsertionReason==1), 'non digital input not supported!'); % make sure it's due to digital.
 NEV_codes_old = NEV_codes_old(:);
 NEV_times_old = NEV_times_old(:);
 
