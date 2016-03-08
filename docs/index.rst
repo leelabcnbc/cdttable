@@ -9,6 +9,10 @@ Welcome to cdttable's documentation!
 **cdttable** is a tool to convert trial-based spiking neural data 
 into a universal format called CDT table.
 
+:download:`Here </brain_bag_talk.pdf>` is a talk on **cdttable**.
+
+
+
 Contents:
 
 .. toctree::
