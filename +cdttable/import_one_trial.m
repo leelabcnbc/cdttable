@@ -59,11 +59,19 @@ CDTTableRow = import_one_trial_getevents(CDTTableRow,trial_struct);
 %% shift start and stop times with CDTTableRow.trialStartTime as start point.
 CDTTableRow.starttime = CDTTableRow.starttime - CDTTableRow.trialStartTime;
 CDTTableRow.stoptime = CDTTableRow.stoptime - CDTTableRow.trialStartTime;
+CDTTableRow.trialLength = CDTTableRow.trialEndTime - CDTTableRow.trialStartTime;
+assert(CDTTableRow.trialLength>=0);
 
+% one final check.
+assert(all(CDTTableRow.starttime >= 0 & CDTTableRow.starttime<=CDTTableRow.trialLength));
+assert(all(CDTTableRow.stoptime >= 0 & CDTTableRow.stoptime<=CDTTableRow.trialLength));
+for iUnit = 1:numel(CDTTableRow.spikeTimes)
+    spikeTimesThisUnit = CDTTableRow.spikeTimes{iUnit};
+    assert(all(spikeTimesThisUnit>=0 & spikeTimesThisUnit<=CDTTableRow.trialLength));
+end
 
 %% remove aux fields which users shouldn't care about.
-CDTTableRow = rmfield(CDTTableRow,{'startAlignCodes','trialStartTime',...
-    'trialEndTime'});
+CDTTableRow = rmfield(CDTTableRow,{'startAlignCodes'});
 
 end
 

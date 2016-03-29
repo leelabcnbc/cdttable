@@ -44,7 +44,8 @@ for iFile = 1:numel(argList)
 end
 
 %% do the actual conversion.
-CDTTables = import_files(@nevreader.preprocessing_func, argList, importParamsPath);
+[CDTTables, import_params_string] = ...
+    import_files(@nevreader.preprocessing_func, argList, importParamsPath);
 
 
 
@@ -57,6 +58,7 @@ metaInfo = struct();
 metaInfo.NEV_list = NEV_list;
 metaInfo.CTX_list = CTX_list;
 metaInfo.timestamp = datestr(now,30);
+metaInfo.import_params_string = import_params_string;
 
 save_CDTTable(fullfile(saveDir,saveFileName),CDTTables,metaInfo);
 
@@ -66,7 +68,7 @@ function save_CDTTable(savePath, CDTTables, metaInfo)
 % demo function to save result. maybe it's good to change it into a
 % standalone function.
 
-if nargin < 4 || isempty(metaInfo)
+if nargin < 3 || isempty(metaInfo)
     metaInfo = [];
 end
 

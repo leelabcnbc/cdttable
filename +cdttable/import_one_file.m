@@ -86,7 +86,9 @@ CDTTable.spikeUnit = cell(numTrial,1);
 CDTTable.spikeTimes = cell(numTrial,1);
 CDTTable.eventCodes = cell(numTrial,1);
 CDTTable.eventTimes = cell(numTrial,1);
-
+CDTTable.trialStartTime = zeros(numTrial,1);
+CDTTable.trialEndTime = zeros(numTrial,1);
+CDTTable.trialLength = zeros(numTrial,1);
 
 for iTrial = 1:numTrial
     CDTTableThisRow = CDTTableByTrials{iTrial};
@@ -98,6 +100,9 @@ for iTrial = 1:numTrial
     CDTTable.spikeTimes{iTrial} = CDTTableThisRow.spikeTimes;
     CDTTable.eventCodes{iTrial} = CDTTableThisRow.eventCodes;
     CDTTable.eventTimes{iTrial} = CDTTableThisRow.eventTimes;
+    CDTTable.trialStartTime(iTrial) = CDTTableThisRow.trialStartTime;
+    CDTTable.trialEndTime(iTrial) = CDTTableThisRow.trialEndTime;
+    CDTTable.trialLength(iTrial) = CDTTableThisRow.trialLength;
 end
 
 CDTTable.starttime = cell2mat(CDTTable.starttime);

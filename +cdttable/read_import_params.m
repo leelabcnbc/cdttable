@@ -1,4 +1,4 @@
-function [ import_params_java, isValid ] = read_import_params( import_params_path )
+function [ import_params_java, isValid, import_params_string ] = read_import_params( import_params_path )
 %READ_IMPORT_PARAMS read import parameters
 %   
 %    :param import_params_path: path to JSON file of import params
@@ -11,11 +11,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.File
 mapper = ObjectMapper();
 import_params_java = [];
+import_params_string = '';
 importParamsInstance = mapper.readTree(File(import_params_path));
 schema_java = get_schema();
 isValid = schema_java.validInstance(importParamsInstance);
 if isValid
     import_params_java = mapper.readValue(File(import_params_path),java.lang.Object().getClass);
+    import_params_string = char(mapper.writeValueAsString(import_params_java));
+    assert(ischar(import_params_string));
 end
 end
 
