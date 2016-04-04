@@ -57,6 +57,9 @@ saveFileName = 'import_NEV_demo_result'; % no extension, which will be appended 
 metaInfo = struct();
 metaInfo.NEV_list = NEV_list;
 metaInfo.CTX_list = CTX_list;
+tablename_list = NEV_list;
+metaInfo.tablename_list = tablename_list;
+
 metaInfo.timestamp = datestr(now,30);
 metaInfo.import_params_string = import_params_string;
 
